@@ -51,12 +51,3 @@ function wsSendRevertMessage() {
     socket.send(JSON.stringify(message));
     console.log('Sent message to plugin:', message);
 }
-
-function wsSendDisconnectMessage() {
-    const message = {
-        type: 'disconnect'
-    };
-
-    socket.send(JSON.stringify(message));
-    console.log('Sent message to plugin:', message);
-}

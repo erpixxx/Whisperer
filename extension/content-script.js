@@ -41,10 +41,6 @@ whispererSocket.addEventListener('message', (event) => {
             }
             scrape();
         }
-        if (data.type === 'disconnect') {
-            whispererSocket.close();
-        }
-
     } catch (error) {
         console.log('[Whisperer]: Cannot handle message:', event.data);
     }

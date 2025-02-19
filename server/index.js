@@ -16,7 +16,6 @@ wss.on('connection', (ws, req) => {
 
             const data = JSON.parse(message.toString());
             if (data.type === 'register' && data.role) {
-
                 if (data.role === 'controller' && Array.from(wss.clients).some(client => client.role === 'controller')) {
                     ws.send(JSON.stringify({ type: 'error', message: 'Controller is already registered.' }));
                     ws.close();
@@ -36,7 +35,7 @@ wss.on('connection', (ws, req) => {
                 });
             }
 
-            if (data.type === 'inject_message' || data.type === 'revert_message' || data.type === 'disconnect') {
+            if (data.type === 'inject_message' || data.type === 'revert_message') {
                 wss.clients.forEach(client => {
                     if (client.readyState === WebSocket.OPEN && client.role === 'plugin') {
                         client.send(JSON.stringify(data));
