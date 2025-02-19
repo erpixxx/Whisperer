@@ -24,7 +24,7 @@ Whisperer is an application that allows remote modification of elements on a web
 
 3. Start the server:
     ```sh
-    node index.js
+    npm start
     ```
 
 ## Project Structure
