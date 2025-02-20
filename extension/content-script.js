@@ -15,6 +15,14 @@ whispererSocket.onclose = () => {
     console.log('[Whisperer]: Websocket connection closed');
 };
 
+window.addEventListener('beforeunload', () => {
+    whispererSocket.close();
+});
+
+window.addEventListener('unload', () => {
+    whispererSocket.close();
+});
+
 whispererSocket.addEventListener('message', (event) => {
     try {
         const data = JSON.parse(event.data);

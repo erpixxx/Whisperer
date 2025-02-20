@@ -36,19 +36,25 @@ wss.on('connection', (ws, req) => {
             }
 
             if (data.type === 'inject_message' || data.type === 'revert_message') {
+                const target = data.target;
                 wss.clients.forEach(client => {
-                    if (client.readyState === WebSocket.OPEN && client.role === 'plugin') {
+                    if (client.readyState === WebSocket.OPEN && client.role === 'plugin' && client.id === target) {
                         client.send(JSON.stringify(data));
                     }
                 });
             }
-
         } catch (error) {
             console.error('Unexpected error:', error);
         }
     });
 
     ws.on('close', () => {
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN && client.role === 'controller') {
+                const data = { type: 'disconnect', clientId: ws.id };
+                client.send(JSON.stringify(data));
+            }
+        });
         console.log('Closed connection with:', ws.id);
     });
 });
