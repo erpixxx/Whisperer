@@ -31,14 +31,11 @@ Whisperer is an application that allows remote modification of elements on a web
     ```sh
     npm start
     ```
-    
+
 </details>
-<details>
+<details> 
 
 <summary>Docker</summary>    
-
-> [!IMPORTANT]
-> Make sure to have Docker with Compose installed on your system! 
 
 ### Docker
 1. Clone the repository
