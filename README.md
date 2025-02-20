@@ -7,9 +7,14 @@ Whisperer is an application that allows remote modification of elements on a web
 - Remote modification of content elements on a webpage.
 - Undo changes made.
 - Automatic sending of DOM snapshots to the server.
+- Supporting Docker with Docker Compose.
 
 ## Installation
+<details>
 
+<summary>Manual</summary>
+
+### Manual 
 1. Clone the repository:
     ```sh
     git clone https://github.com/YourRepository/Whisperer.git
@@ -26,6 +31,28 @@ Whisperer is an application that allows remote modification of elements on a web
     ```sh
     npm start
     ```
+    
+</details>
+<details>
+
+<summary>Docker</summary>    
+
+> [!IMPORTANT]
+> Make sure to have Docker with Compose installed on your system! 
+
+### Docker
+1. Clone the repository
+    ```sh
+    git clone https://github.com/YourRepository/Whisperer.git
+    ```
+
+2. Run the docker-compose command
+    ```sh
+    docker compose up -d
+    ```
+
+</details>
+
 
 ## Project Structure
 
