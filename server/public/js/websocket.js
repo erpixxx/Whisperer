@@ -28,7 +28,6 @@ socket.addEventListener('message', (event) => {
 function createNewConnection(data) {
     const connections = document.querySelector(".connections");
     const selectList = document.getElementById("connection-select");
-    console.log(selectList);
 
     const existingConnection = document.getElementById("connection-" + data.clientId);
     if (existingConnection) {
