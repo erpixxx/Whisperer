@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://127.0.0.1:5440"); // TODO
+const socket = new WebSocket('wss://whisperer.erpix.dev');
 
 socket.addEventListener('open', () => {
     socket.send(JSON.stringify({ type: 'register', role: 'controller' }));

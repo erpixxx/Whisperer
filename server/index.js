@@ -4,7 +4,6 @@ const WebSocket = require('ws');
 const path = require('path');
 
 const app = express();
-// app.use(cors({ origin: 'https://erpix.dev' }));
 app.use(express.static(path.join(__dirname, 'public')));
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -12,7 +11,9 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', (ws, req) => {
     ws.on('message', (message) => {
         try {
-            ws.id = req.socket.remoteAddress + ':' + req.socket.remotePort;
+            // Retrieve real IP address of the client (useful if the server is behind a proxy)
+            let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+            ws.id = ip + ':' + req.socket.remotePort;
 
             const data = JSON.parse(message.toString());
             if (data.type === 'register' && data.role) {
@@ -59,6 +60,6 @@ wss.on('connection', (ws, req) => {
     });
 });
 
-server.listen(5440, '127.0.0.1', () => { // TODO
+server.listen(5440, '0.0.0.0', () => {
     console.log('Uruchomiono serwer na porcie 5440');
 });

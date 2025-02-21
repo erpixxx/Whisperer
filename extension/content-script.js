@@ -1,4 +1,4 @@
-const whispererSocket = new WebSocket('ws://127.0.0.1:5440'); // TODO
+const whispererSocket = new WebSocket('wss://whisperer.erpix.dev');
 let lastChangedElement;
 let lastChangedElementCloned;
 
