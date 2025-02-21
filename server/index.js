@@ -61,5 +61,5 @@ wss.on('connection', (ws, req) => {
 });
 
 server.listen(5440, '0.0.0.0', () => {
-    console.log('Uruchomiono serwer na porcie 5440');
+    console.log('Started server on port 5440');
 });
