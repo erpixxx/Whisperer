@@ -1,4 +1,4 @@
-const whispererSocket = new WebSocket('ws://127.0.0.1:5440'); // TODO
+const whispererSocket = new WebSocket('wss://whisperer.erpix.dev');
 let lastChangedElement;
 let lastChangedElementCloned;
 
@@ -14,6 +14,14 @@ whispererSocket.onerror = (error) => {
 whispererSocket.onclose = () => {
     console.log('[Whisperer]: Websocket connection closed');
 };
+
+window.addEventListener('beforeunload', () => {
+    whispererSocket.close();
+});
+
+window.addEventListener('unload', () => {
+    whispererSocket.close();
+});
 
 whispererSocket.addEventListener('message', (event) => {
     try {
@@ -41,10 +49,6 @@ whispererSocket.addEventListener('message', (event) => {
             }
             scrape();
         }
-        if (data.type === 'disconnect') {
-            whispererSocket.close();
-        }
-
     } catch (error) {
         console.log('[Whisperer]: Cannot handle message:', event.data);
     }
