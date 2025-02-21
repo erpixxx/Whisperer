@@ -17,28 +17,16 @@
         <div class="controller-input">
             <textarea id="messageInput" placeholder="&lt;p&gt;Message to be sent&lt;/p&gt;"></textarea>
             <div class="controller-input__buttons">
-                <button class="controller-input__buttons__send" onclick="sendInjectionMessage()">Wyślij</button>
-                <button class="controller-input__buttons__revert" onclick="wsSendRevertMessage()">Cofnij</button>
-                <button class="controller-input__buttons__disconnect" onclick="wsSendDisconnectMessage()">Zawiń manatki</button>
+                <select id="connection-select"></select>
+                <button class="controller-input__buttons__send" onclick="sendInjectionMessage()">Send</button>
+                <button class="controller-input__buttons__revert" onclick="wsSendRevertMessage()">Revert last change</button>
                 <input id="cssSelector" type="text" placeholder="CSS Selector">
                 <input id="replaceCheckbox" type="checkbox" name="replace">
                 <label for="replace">Replace</label>
-                <div class="controller-input__buttons__size">
-                    <span>Preview size</span>
-                    <input id="heightSlider" type="range" placeholder="Slide" min="500" max="1000" value="650">
-                    <span id="sliderValue">650px</span>
-                </div>
             </div>
         </div>
     </div>
-    <div class="preview">
-        <fieldset>
-            <legend>Podgląd</legend>
-            <div id="previewContainer">
-                <iframe id="domFrame"></iframe>
-            </div>
-        </fieldset>
-    </div>
+    <div class="connections"></div>
     <script src="/js/websocket.js"></script>
     <script src="/js/preview.js"></script>
 </body>

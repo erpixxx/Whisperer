@@ -4,7 +4,6 @@ const WebSocket = require('ws');
 const path = require('path');
 
 const app = express();
-// app.use(cors({ origin: 'https://erpix.dev' }));
 app.use(express.static(path.join(__dirname, 'public')));
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
@@ -12,11 +11,12 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', (ws, req) => {
     ws.on('message', (message) => {
         try {
-            ws.id = req.socket.remoteAddress + ':' + req.socket.remotePort;
+            // Retrieve real IP address of the client (useful if the server is behind a proxy)
+            let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+            ws.id = ip + ':' + req.socket.remotePort;
 
             const data = JSON.parse(message.toString());
             if (data.type === 'register' && data.role) {
-
                 if (data.role === 'controller' && Array.from(wss.clients).some(client => client.role === 'controller')) {
                     ws.send(JSON.stringify({ type: 'error', message: 'Controller is already registered.' }));
                     ws.close();
@@ -36,24 +36,30 @@ wss.on('connection', (ws, req) => {
                 });
             }
 
-            if (data.type === 'inject_message' || data.type === 'revert_message' || data.type === 'disconnect') {
+            if (data.type === 'inject_message' || data.type === 'revert_message') {
+                const target = data.target;
                 wss.clients.forEach(client => {
-                    if (client.readyState === WebSocket.OPEN && client.role === 'plugin') {
+                    if (client.readyState === WebSocket.OPEN && client.role === 'plugin' && client.id === target) {
                         client.send(JSON.stringify(data));
                     }
                 });
             }
-
         } catch (error) {
             console.error('Unexpected error:', error);
         }
     });
 
     ws.on('close', () => {
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN && client.role === 'controller') {
+                const data = { type: 'disconnect', clientId: ws.id };
+                client.send(JSON.stringify(data));
+            }
+        });
         console.log('Closed connection with:', ws.id);
     });
 });
 
-server.listen(5440, '127.0.0.1', () => { // TODO
-    console.log('Uruchomiono serwer na porcie 5440');
+server.listen(5440, '0.0.0.0', () => {
+    console.log('Started server on port 5440');
 });
