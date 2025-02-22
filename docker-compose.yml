@@ -1,0 +1,7 @@
+services:
+  app:
+    container_name: whisperer
+    build:
+        dockerfile: ./Dockerfile
+    ports:
+      - 5440:5440
