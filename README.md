@@ -17,7 +17,7 @@ Whisperer is an application that allows remote modification of elements on a web
 ### Manual 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/YourRepository/Whisperer.git
+    git clone https://github.com/erpixxx/Whisperer.git
     cd Whisperer
     ```
 
@@ -40,7 +40,7 @@ Whisperer is an application that allows remote modification of elements on a web
 ### Docker
 1. Clone the repository
     ```sh
-    git clone https://github.com/YourRepository/Whisperer.git
+    git clone https://github.com/erpixxx/Whisperer.git
     ```
 
 2. Run the docker-compose command
